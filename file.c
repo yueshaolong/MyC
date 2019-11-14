@@ -4,7 +4,7 @@
 
 #include <stdio.h>
 
-int main(){
+int main1(){
     FILE *pr = fopen("./a.txt", "r");
     if(pr){
         while(!feof(pr)){
