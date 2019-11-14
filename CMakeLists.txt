@@ -3,4 +3,4 @@ project(untitled)
 
 set(CMAKE_CXX_STANDARD 14)
 
-add_executable(untitled main.c a.cpp)
+add_executable(untitled jichu.c a.cpp file.c)
