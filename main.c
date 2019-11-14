@@ -22,7 +22,6 @@
 #elif SYSTEM_2
 # include "system_2.h"
 #elif SYSTEM_3
-
 #endif
 
 #define tokenpaster(n) printf (" " #n " = %d", token##n)
@@ -178,8 +177,6 @@ void medthod_zz(){
 int main() {
     printf("Hello, World!\n我的C\n");
 
-//    a(23);
-//    b();
 
 //    int x =1, y =1, z = 1;
 //    printf("%d\n", ++x || (++y && ++z));
@@ -201,18 +198,19 @@ int main() {
 //    BYTE a;
 //    BYTE byte;
 
-//    c();
-
 //    const_zz();
 //    arr_zz();
 //    medthod_zz();
 
-    a1();
-    b1();
+//    a(23);
+//    b();
+//    c();
+//    a1();
+//    b1();
     c1();
-    d();
-    e();
-    sw();
+//    d();
+//    e();
+//    sw();
 
     return 0;
 }
@@ -238,12 +236,14 @@ int b(){
     // 显示八进制时，在数值前会加上数字0.显示十六进制时，会在数值前加上0x。
     // 如果配合%f、%e等浮点格式化字符时，即使所设置的数值不含小数部分，也会包含小数点。
     printf("%#x\n", &i);
+    printf("%d\n", *p);
     printf("%p\n", &*p);
 
     //解引用 ?
     // p指向一个内存地址，使用*解出这个地址的值 即为 10
     int pv = *p;
     printf("%d\n", pv);
+    printf("%p\n", &pv);
     //修改地址的值,则i值也变成100
     // 为解引用的结果赋值也就是为指针所指的内存赋值
     *p = 100;
@@ -254,17 +254,19 @@ int b(){
 
 int c(){
     int array[5] = {0};
-       printf("array = %p\n", array);//表达式中的数组名被编译器当做一个指向该数组第一个元素的指针
-       printf("&array = %p\n", &array);
-       printf("array + 1 = %p\n", array + 1);//
-       printf("&array[0] + 1 = %p\n", &array[0] + 1);
+        //表达式中的数组名被编译器当做一个指向该数组第一个元素的指针
+       printf("array = %p\n", array);//数组名被编译器当做一个指向该数组第一个元素的指针
+       printf("&array = %p\n", &array);//数组的地址
+       printf("&array = %p\n", &array[0]);//数组第一个元素的地址
+       printf("array + 1 = %p\n", array + 1);//地址+1
        printf("&array + 1 = %p\n", &array + 1);
+       printf("&array[0] + 1 = %p\n", &array[0] + 1);
        printf("\n");
-       printf(" sizeof(int*) = %d\n", sizeof(int*));
-       printf(" sizeof(array[0]) = %d\n", sizeof(&array[0]));
-       printf(" sizeof(0xffffcc04) = %d\n",sizeof(0xffffcc04));
-       printf(" sizeof(array) = %d\n", sizeof(array));//数组类型的长度
-       printf("sizeof(&array) = %d\n", sizeof(&array));//计算的是指针的长度
+       printf(" sizeof(int*) = %d\n", sizeof(int*));//计算的是指针的长度  8位
+       printf(" sizeof(array[0]) = %d\n", sizeof(&array[0]));//计算的是指针的长度  8位
+       printf("sizeof(&array) = %d\n", sizeof(&array));//计算的是指针的长度  8位
+       printf(" sizeof(0xffffcc04) = %d\n",sizeof(0xffffcc04));//数值的长度  4位
+       printf(" sizeof(array) = %d\n", sizeof(array));//数组类型的长度  20位
 
 }
 
@@ -273,34 +275,51 @@ int c(){
 int a1(){
     int *ptr_i = NULL;
 
-    int n;
     char c;
     short s;
 
-    int *ptr_n = &n;
     char  *ptr_c = &c;
     short *ptr_s = &s;
 
-    printf("ptr_n=%p\n", ptr_n);
-    void *ptr_v = ptr_n;
-    printf("ptr_v=%p\n", ptr_v);
+    int n = 7;
+    int *ptr_n = &n;
+    printf("ptr_n d=%d\n", n);//7  n的值是7
+    printf("ptr_n p=%p\n", &n);//000000000061FDBC  存数字7的地方（内存位置）
+    printf("ptr_n p=%p\n", ptr_n);//000000000061FDBC，存数字7的地方（内存位置）
+    printf("ptr_n p=%p\n", &ptr_n);//000000000061FDB8,存数字000000000061FDBC（6421948）的地方（内存位置）
+    //这里是把地址转换成了十进制的值，如上面输出为000000000061FDBC，换算成十进制刚好是6421948
+    printf("ptr_n d=%d\n", ptr_n);//6421948，指针的值
 
-    int *ptr_n_1 = (int*)ptr_v;
+    printf("大小%d\n", sizeof(ptr_n));
+
+    void *ptr_v = ptr_n;
+    printf("ptr_v d=%d\n", ptr_v);//指针的值
+    printf("ptr_v p=%p\n", ptr_v);//指针的地址
+
+    int *ptr_n_1 = (int*)ptr_v;//等价
+    printf("ptr_v d=%d\n", ptr_n_1);//指针的值
+    printf("ptr_v p=%p\n", ptr_n_1);//指针的地址
     return 0;
 };
 
 int b1(){
     int i = 100;
     int *ptr_i = &i;
-    printf("ptr_i%p\n", ptr_i);
-    printf("ptr_i%p\n", ptr_i+1);
-    printf("ptr_i%p\n", ptr_i+2);
+    printf("ptr_i%p\n", ptr_i);//000000000061FDDC  6421980 每加1，地址加4
+    printf("ptr_i%p\n", ptr_i+1);//000000000061FDE0 6421984
+    printf("ptr_i%p\n", ptr_i+2);//000000000061FDE4 6421988
 
     short c = 100;
     short *ptr_c = &c;
-    printf("ptr_c%p\n", ptr_c);
-    printf("ptr_c%p\n", ptr_c+1);
-    printf("ptr_c%p\n", ptr_c+2);
+    printf("ptr_c%p\n", ptr_c);//000000000061FDDA  6421978  每加1，地址加2
+    printf("ptr_c%p\n", ptr_c+1);//000000000061FDDC  6421980
+    printf("ptr_c%p\n", ptr_c+2);//000000000061FDDE  6421982
+
+    long d = 100;
+    long *ptr_d = &d;
+    printf("ptr_d%p\n", ptr_d);//000000000061FDCC  6421964  每加1，地址加4
+    printf("ptr_d%p\n", ptr_d+1);//000000000061FDD0  6421968
+    printf("ptr_d%p\n", ptr_d+2);//000000000061FDD4  6421972
 
     return 0;
 }
@@ -314,7 +333,7 @@ int c1(){
     printf("arr%p\n", &arr);
     printf("ptr_arr[0]%d\n", ptr_arr[0]);
 
-    ptr_arr[2] = 1000;
+    ptr_arr[2] = 1000;//
     printf("ptr_arr[2]%d\n", arr[2]);
 
     return 0;
