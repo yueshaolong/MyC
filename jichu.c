@@ -76,8 +76,53 @@ void strarr() {
     printf("sss[0] = %s\n", sss[0]);//sss[0] = abc
 }
 
-union Date{
+struct Books{//结构体
+    char title[10];
+    char auther[10];
+    int id;
+} book = {"C语言", "zero", 1};
 
+int StructDemo() {
+    printf("---------------------------\n");
+    printf("book1.title = %s\n", book.title);
+    printf("book1.auther = %s\n", book.auther);
+    printf("book1.id = %d\n", book.id);
+    struct Books book1;
+    strcpy(book1.title, "adfsdf");
+    strcpy(book1.auther, "kkk");
+    book1.id=2;
+    printf("book1.title = %s\n", book1.title);
+    printf("book1.auther = %s\n", book1.auther);
+    printf("book1.id = %d\n", book1.id);
+    printf("sizeof(book1) = %d\n", sizeof(book1));//24
+    struct Books *b;
+    b = &book1;
+    printf("---------------------------\n");
+    printf("book1.title = %s\n", b->title);
+    printf("book1.auther = %s\n", b->auther);
+    printf("book1.id = %d\n", b->id);
+    printf("book1.title = %s\n", (*b).title);
+    printf("book1.auther = %s\n", (*b).auther);
+    printf("book1.id = %d\n", (*b).id);
+
+    return 0;
+}
+union Date{//共用体
+    int i;
+    float f;
+    char str[20];
+};
+int unionDemo(){
+    union Date date;
+    date.i = 2;
+    date.f = 2.1;
+    strcpy(date.str, "sdf");
+    printf("---------------------------\n");
+    printf("date.i = %d\n", date.i);
+    printf("date.f = %d\n", date.f);
+    printf("date.str = %s\n", date.str);
+    printf("sizeof(date) = %d\n", sizeof(date));//20
+    return 0;
 };
 
 int main() {
@@ -85,8 +130,12 @@ int main() {
 
 //    str();
 //    strr();
-    strarr();
+//    strarr();
 
-    union Date date;
+//    StructDemo();
+    unionDemo();
+
     return 0;
 }
+
+
