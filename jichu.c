@@ -45,6 +45,12 @@ void strr() {
     printf("拼接后%s\n", s1);//abc123
     strcat(s2, s1);//(123, abc123)
     printf("拼接后%s\n", s2);//123abc123
+    printf("拼接后%s\n", s1);//bc123，原来跟s2的大小有关
+    //s2[3]  输出：s2 = 123abcabcabca  s1 = abcabcabca
+    //s2[4]  输出：s2 = 123abc  s1 = bc
+    //s2[5]  输出：s2 = 123abc  s1 = c
+    //s2[6]  输出：s2 = 123abc  s1 = 空
+    //s2[7]  输出：s2 = 123abc  s1 = abc
 
     printf("---------------------------\n");
     printf("拷贝字符串\n");
@@ -133,8 +139,16 @@ int main() {
 //    strarr();
 
 //    StructDemo();
-    unionDemo();
-
+//    unionDemo();
+    printf("---------------------------\n");
+    printf("字符串拼接\n");
+    char s1[] = "abc";
+    char s2[7] = "123";
+//    strcat(s1, s2);//（abc, 123）
+//    printf("拼接后%s\n", s1);//abc123
+    strcat(s2, s1);//(123, abc123)
+    printf("s2 = %s\n", s2);//123abc123
+    printf("s1 = %s\n", s1);//bc123
     return 0;
 }
 
