@@ -140,15 +140,22 @@ int main() {
 
 //    StructDemo();
 //    unionDemo();
-    printf("---------------------------\n");
-    printf("字符串拼接\n");
-    char s1[] = "abc";
-    char s2[7] = "123";
-//    strcat(s1, s2);//（abc, 123）
-//    printf("拼接后%s\n", s1);//abc123
-    strcat(s2, s1);//(123, abc123)
-    printf("s2 = %s\n", s2);//123abc123
-    printf("s1 = %s\n", s1);//bc123
+
+    printf("char 长度%d\n", sizeof(char));//1字节
+    printf("short 长度%d\n", sizeof(short));//2字节
+
+    printf("int 长度%d\n", sizeof(int));//4字节
+    printf("short int 长度%d\n", sizeof(short int));//2字节
+    printf("long int 长度%d\n", sizeof(long int));//4字节
+    printf("long long int 长度%d\n", sizeof(long long int));//8字节
+
+    printf("long 长度%d\n", sizeof(long));//4字节
+
+    printf("float 长度%d\n", sizeof(float));//4字节
+    printf("double 长度%d\n", sizeof(double));//8字节
+    printf("long double 长度%d\n", sizeof(long double));//16字节
+
+    printf("_Bool 长度%d\n", sizeof(_Bool));//1字节
     return 0;
 }
 
