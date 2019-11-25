@@ -181,6 +181,8 @@ void randM();
 
 void timeM();
 
+void arrayP();
+
 int unionDemo(){
     union Date date;
     date.i = 2;
@@ -246,9 +248,44 @@ int main() {
 
 //    randM();//随机数
 
-    timeM();//时间相关
+//    timeM();//时间相关
+
+
+//    arrayP();//数组名字就是指向数组第一个元素的指针，指针法取值
+
+    //指针数组，这是一个数组，里面存的元素是指针。
+    char * str[3] = {"稍等", "sdfnsdkf", "到付哈地方"};
+    for (int i = 0; i < 3; ++i) {
+        printf("%s\n", str[i]);
+    }
+    //数组指针,指向一个数组的地址
+    char c[3] = {'a', 'b', 'c'};
+    char (*p)[3] = &c;
+    for (int j = 0; j < 3; ++j) {
+        printf("%c\n", *(*p+j));
+    }
 
     return 0;
+}
+
+void arrayP() {
+    //数组名是一个常量是不可变的，而指针是左值是一个变量
+    char str[] = "sdefe";
+    char *ps = str;
+    printf("%p\n", str);
+    printf("ps = %p\n", ps);
+    printf("s的地址%p\n", &str[0]);
+    for (int i = 0; i < strlen(str); ++i) {
+        //ps+1并不是地址加1,而是移动到下一个元素
+        printf("第%d个元素 %c\n", i, *(ps+i));//指针法取值
+        printf("第%d个元素 %c\n", i, *(str+i));//指针法取值
+        printf("第%d个元素 %c\n", i, str[i]);//下标法取值
+    }
+    int count = 0;
+    while (*ps++ != '\0'){
+        count ++;
+    }
+    printf("长度是%d\n", count);
 }
 
 void timeM() {
@@ -579,14 +616,14 @@ void putcharM() {
 
 void snpM() {
     char c[65];
-    int i = snprintf(c, 6, "avcdfgsad");
+    int i = snprintf(c, 6, "%s", "avcdfgsad");
     printf("字符串%s\n", c);//avcdfg
     printf("返回值是：%d\n", i);//-1  第二个参数缓冲区大小，小于字符串长度
 
 //    int i1 = snprintf(c, 9, "avcdfgsad");
     int i1 = snprintf(c, 10, "avcdfgsad");
     printf("字符串%s\n", c);//avcdfgsad
-    printf("返回值是：%d\n", i1);//9  第二个参数缓冲区大小大于等于字符串长度
+    printf("返回值是：%d\n", i1);//9  第二个参数缓冲区大小大于等于字符串长度,返回选中的字符串长度
 
 }
 
