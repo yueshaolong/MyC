@@ -57,6 +57,7 @@ int max(int a, int b){
 void const_zz() {//常量指针
     //注意char const *p与const char *p效果相同。
     char const *p1;//const修饰的是char，定义为常量指针。
+    const char *p1;//与上等同
     // 因为const修饰的是char，所以p1所指向的内存地址所对应的值是const，不可修改。
     // 但指针所指向的内存地址是可以修改的，因为其并不是const类型。
     // p1=1;//正确  地址可改变
@@ -207,10 +208,10 @@ int main() {
 //    c();
 //    a1();
 //    b1();
-    c1();
+//    c1();
 //    d();
 //    e();
-//    sw();
+    sw();
 
     return 0;
 }

@@ -3,8 +3,499 @@
 #include <string.h>
 #include <math.h>
 #include <time.h>
+#include <stdarg.h>
 
 #define MAX 1024
+
+void sizeofMethod();
+
+void getChar();
+
+void powM();
+
+void scanfM();
+
+void strlenM();
+
+void atoiM();
+
+void itoaM();
+
+void spM();
+
+void snpM();
+
+void putcharM();
+
+void sqrtM();
+
+void fabsM();
+
+void strcopyM();
+
+void strcatM();
+
+void strcmpM();
+
+void strncpyM();
+
+void strncatM();
+
+void strncmpM();
+
+void fgetsM();
+
+void mallocM();
+
+void callocM();
+
+void reallocM();
+
+void memsetM();
+
+void memcpyM();
+
+void memmoveM();
+
+void memcmpM();
+
+void memchrM();
+
+void randM();
+
+void timeM();
+
+void arrayP();
+
+void str();
+void strr();
+void strarr();
+
+int StructDemo();
+int unionDemo();
+
+void arrP();
+
+void erweiarr2P();
+
+void pp();
+
+void ppUse();
+
+void arrzz();
+
+void constzz();
+
+void constzz2();
+
+int getInt(int n);
+
+void sum();
+
+void czorcz();
+
+union Date{//共用体
+    int i;
+    float f;
+    char str[20];
+};
+struct Books{//结构体
+    char title[10];
+    char auther[10];
+    int id;
+} book = {"C语言", "zero", 1};
+
+void cz(int a[5]){
+    a[1] = 110;
+    for (int i = 0; i < 5; ++i) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+void cz1(int (*a)[5]){//参数的是数组指针
+    *(*a+1) = 1000;
+    for (int i = 0; i < 5; ++i) {
+        printf("%d ", *(*a+i));
+    }
+    printf("\n");
+}
+int summ(int n,...);
+int summ(int n,...){
+    va_list vaList;//参数列表
+    int count = 0;
+    va_start(vaList, n);//开始
+    for (int i = 0; i < n; ++i) {
+        count += va_arg(vaList, int);//获取参数的值
+    }
+    va_end(vaList);//结束
+    printf("count=%d\n", count);
+    return count;
+}
+
+char * getp(char c);
+
+void zzmethod();
+
+//返回值类型为指针，这是一个指针函数。
+//不要返回一个局部变量的指针
+char * getp(char c){
+    switch (c){
+        case 'a':
+            return "abc";
+        case 'b':
+            return "sdf";
+        default:
+            return "sss";
+    }
+}
+int sq(int n);
+
+void methodzz();
+
+int sq(int n){
+    return n*n;
+}
+
+int add(int x, int y);
+int add(int x, int y){
+    return x + y;
+}
+int jian(int x, int y);
+int jian(int x, int y){
+    return x - y;
+}
+int cacel(int (*pInt)(int, int), int m, int n);
+
+void methodzzV();
+
+//函数指针也可做为函数的参数传递进去
+int cacel(int (*pInt)(int, int), int m, int n){
+    return (*pInt)(m, n);
+}
+
+int (*select(char c))(int, int);
+
+void methodzzM();
+
+void zyy();
+
+//首先根据优先级，select是一个函数，参数是char类型，返回值是一个指针；
+//将select(char c)去掉，int (*)(int, int)这就是select的返回值，返回一个函数指针
+//此返回值是一个返回int,有两个int参数的函数指针。
+int (*select(char c))(int x, int y){
+    switch (c){
+        case '+':
+            return add;
+        case '-':
+            return jian;
+    }
+}
+int cocc /*= 0*/;//这是全局变量，会被自动初始化为0；
+void func();
+void func(){
+    extern int ccc;//extern关键字，可以在下面定义此变量
+    ccc+=10;
+    printf("%d\n", ccc);
+}
+int ccc = 3;
+void funcc(void){
+    auto int i = 100;
+    //i就是一个自动变量
+    register int ii = 0;
+//    printf("%p\n", &ii);//报错，寄存器变量不可取地址
+    static int iii = 34;//静态局部变量，拥有静态存储期，和全局变量一样，直到程序结束释放内存
+}
+
+int main() {
+    printf("Hello, World!\n我的C\n");
+
+//    str();
+//    strr();
+//    strarr();
+
+//    StructDemo();
+//    unionDemo();
+
+//    sizeofMethod();//所占用内存得字节数
+
+//    getChar();//从标准输入流中获取字符
+
+//    powM();//求x得y次方
+
+//    scanfM();//格式化输入
+
+//    strlenM();//求字符串长度
+//    atoiM();//字符串类型改为整型
+//    itoaM();//整型转换为字符串型
+
+//    spM();//写入格式化数据到字符串
+//    snpM();//写入指定长度得格式化数据到字符串
+//    putcharM();//输出一个字符到标准输出流
+//    sqrtM();//求平方根
+//    fabsM();//求绝对值
+
+//    strcopyM();//字符串拷贝
+//    strncpyM();//受限字符串拷贝
+
+//    strcatM();//字符串连接
+//    strncatM();//受限字符串连接
+
+//    strcmpM();//比较字符串比较大小
+//    strncmpM();//受限得字符串比较大小
+
+//    fgetsM();//从指定文件中读取字符串。
+
+//    mallocM();//申请动态内存空间
+//    callocM();//申请并初始化一系列内存空间
+//    reallocM();//重新分配内存空间
+
+//    memsetM();//使用一个常量填充内存空间,相当于初始化为某个值
+//    memcpyM();//拷贝内存空间,按字节来拷贝的，不受数据类型影响
+//    memmoveM();//拷贝内存空间,先拷贝源到一个临时数组，再从临时数组拷贝到目标内存，避免内存重叠更安全
+//    memcmpM();//比较内存的大小
+
+//    memchrM();//在内存空间中搜索一个字符
+
+//    randM();//随机数
+
+//    timeM();//时间相关
+
+//    arrayP();//数组名字就是指向数组第一个元素的指针，指针法取值
+//    arrP();//指针数组，数组指针
+
+//    erweiarr2P();//二维数组，数组名为指向第一行的子数组的数组指针
+
+//    pp();//指针的指针
+//    ppUse();//指针的指针的使用
+//    arrzz();//二维数组和数组指针
+
+//    constzz();//常量指针：指向常量的指针
+//    constzz2();//指针常量：指向常量或变量， 指针用const修饰
+
+//    sum();//求和函数
+
+//    czorcz();//数组其实传的是地址而不是数组里的元素的值
+
+//    summ(3, 1, 3, 2);//可变参数函数的实现
+
+//    zzmethod();//指针函数
+//    methodzz();//函数指针
+
+//    methodzzV();//函数指针作为参数传递
+//    methodzzM();//函数指针作为返回值
+//    zyy();//作用域演示
+//    func();//变量定义测试
+
+
+    return 0;
+}
+
+void zyy() {
+    int i = 76;
+    printf("i = %d\n", i);//76
+    printf("i = %p\n", &i);//76
+    for (int i = 0; i < 10; ++i) {//这里定义了同名的i，编译器没有报错；Java中会直接报错
+        printf("%d ", i);//i的作用域只有for循环内，和上面定义的i是不同的两个东西
+        printf("%p ", &i);
+    }
+    printf("\n");
+    printf("i = %d\n", i);//76
+
+}
+
+void methodzzM() {
+    int num1,num2;
+    char c;
+    int (*fp)(int, int);
+    printf("请输入一个运算式子：");
+    scanf("%d%c%d", &num1, &c, &num2);
+    fp = select(c);
+    printf("%d%c%d=%d", num1, c, num2, cacel(fp, num1, num2));
+}
+
+void methodzzV() {
+    printf("3 + 6 = %d\n", cacel(add, 3, 6));
+    printf("30 - 6 = %d\n", cacel(jian, 30, 6));
+}
+
+void methodzz() {
+    int *p();//声明的是指针函数
+    int (*p1)();//函数指针
+    int n = 0;
+    printf("请输入一个数：");
+    scanf("%d", &n);
+    int (*pInt)(int);//这就是一个 返回值为int,参数为int,的函数的指针，叫函数指针。
+    pInt = sq;//函数名也就是函数的地址
+//    pInt = &sq;//和上面等价
+    printf("%d\n", (*pInt)(n));
+    printf("%d\n", pInt(n));
+}
+
+void zzmethod() {
+    char c;
+    printf("请输入一个字母：");
+    scanf("%c", &c);
+    char *string = getp(c);//此函数返回的是一个字符型的指针，叫指针函数。
+    printf("dedao : %s\n", string);
+}
+
+void czorcz() {
+    int a[5] = {1, 2, 3, 4, 5};
+    cz(a);
+    printf("main函数中打印cz： \n");
+    for (int i = 0; i < 5; ++i) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+    printf("传数组指针：\n");
+    cz1(&a);
+    printf("main函数中打印cz1： \n");
+    for (int i = 0; i < 5; ++i) {
+        printf("%d ", a[i]);
+    }
+    printf("\n");
+}
+
+void sum() {
+    int n = 0;
+    printf("请输入一个数字：");
+    scanf("%d", &n);
+    int count = getInt(n);
+    printf("%d\n", count);
+}
+
+int getInt(int n) {
+    int count = 0;
+    for (int i = 1; i <= n; ++i) {
+        count += i;
+    }
+    return count;
+}
+
+void constzz2() {
+    int num = 10;
+    const int cNum = 880;
+    int * const p = &num;//指向变量的常量指针，指向的值可以改变，指向不能改变
+    *p = 101;//可以的
+    printf("%d\n", *p);
+//    p = &cNum;//报错，因为指针常量，指向不可改变；
+
+    const int * const p1 = &cNum;//指向常量的常量指针，指向的值不可以修改，指向也不可修改
+//第一个const修饰的是int,表示指向的是一个int型的常量，第二个const指向p1，表示指针不能改变
+//    *p1 = 101;//报错，指向的值不可以被修改
+//    p1 = &num;//报错，指针的指向不可以被修改
+
+    const int * const *p2 = &p1;//指向"指向常量的常量指针"的常量指针，指向的值不可以修改，指向也不可修改
+    printf("%d\n", **p2);//880
+
+}
+
+void constzz() {
+    const int i = 9;
+    printf("%d\n", i);
+//    i = 10;//const 修饰后值不可修改
+    int num = 10;
+    const int cNum = 880;
+    //指向常量的指针；可以指向常量也可以指向变量；可以通过解引用获取指向的值，但不能通过解引用修改指向的值
+    const int *cp = &cNum;//cp是常量指针
+    printf("%d\n", *cp);
+    printf("%p\n", cp);
+//    *cp = 1024;//报错，不可修改
+    cp = &num;
+    printf("%d\n", *cp);
+    printf("%p\n", cp);
+//    *cp = 1024;//报错，不可修改
+    num = 111;//修改num的值是可以的
+    printf("%d\n", *cp);
+    printf("%p\n", cp);
+}
+
+void arrzz() {
+    int a[2][5] = {{0, 1, 2, 3, 4}, {5, 6, 7, 8, 9}};
+//    int **p = a;//不能这样写
+//    printf("%p\n", p);//000000000061FDE0
+//    printf("%p\n", p+1);//000000000061FDE8  +1的跨度是8
+//    printf("%p\n", a);//000000000061FDE0
+//    printf("%p\n", a+1);//000000000061FDF4  +1的跨度是20，刚好是五个int
+    int (*p)[5] = a;//用数组指针来表示二维数组，指向五个元素的数组的指针
+    for (int j = 0; j < 2; ++j) {
+        for (int i = 0; i < 5; ++i) {
+            printf("%d ", *(*(p+j)+i));
+        }
+        printf("\n");
+    }
+}
+
+void ppUse() {
+    char *p[3] = {//数组中每个元素都是指针
+            "C程序设计",
+            "C和C++",
+            "C缺陷"
+    };
+    char ** byMe;//指向字符指针的指针
+    char ** other[2];//指向字符指针的指针
+    byMe = &p[1];//第二个元素的地址，
+    other[0] = &p[0];
+    other[1] = &p[2];
+    printf("byMe的字符串：%s\n", *byMe);
+    printf("other的字符串：%s\n", *other[0]);
+    printf("other的字符串：%s\n", *other[1]);
+    p[2] = "hhaha";
+    printf("修改后other的字符串：%s\n", *other[1]);
+}
+
+void pp() {
+    int num = 9;
+    int *p = &num;
+    int **pp = &p;
+    printf("p = %p\n", p);//000000000061FE14
+    printf("pp = %p\n", pp);//000000000061FE08
+    printf("p的地址 = %p\n", &p);//000000000061FE08
+    printf("p解引用 %d\n", *p);//9
+    printf("pp解引用是一个地址 %p\n", *pp);//000000000061FE14
+    printf("pp解引用的解引用 %d\n", **pp);//9
+    printf("p=%p, pp=%p\n", &p, pp);//p=000000000061FE08, pp=000000000061FE08
+    printf("p=%p, *pp=%p, &num=%p\n", p, *pp, &num);//p=000000000061FE14, *pp=000000000061FE14, &num=000000000061FE14
+
+
+}
+
+void erweiarr2P() {
+    int arr[2][3] = {{0, 1, 2}, {3, 4, 5}};
+    int (*p)[3] = arr;//二维数组，数组名为指向第一行的子数组的数组指针
+    printf("**(p+1) = %d\n", **(p+1));
+    printf("**(arr+1) = %d\n", **(arr+1));
+    printf("arr[1] = %d\n", arr[1][0]);
+    printf("*(*(p+1)+2) = %d\n", *(*(p+1)+2));
+    printf("*(*(arr+1)+2) = %d\n", *(*(arr+1)+2));
+    printf("arr[1][2] = %d\n", arr[1][2]);
+}
+
+void arrP() {//指针数组，这是一个数组，里面存的元素是指针。
+    char * str[3] = {"稍等", "sdfnsdkf", "到付哈地方"};
+    for (int i = 0; i < 3; ++i) {
+        printf("%s\n", str[i]);
+    }
+    //数组指针,指向一个数组的地址
+    char c[3] = {'a', 'b', 'c'};
+    char (*p)[3] = &c;
+    for (int j = 0; j < 3; ++j) {
+        printf("%c\n", *(*p+j));
+    }
+}
+
+int unionDemo(){
+    union Date date;
+    date.i = 2;
+    date.f = 2.1;
+    strcpy(date.str, "sdf");
+    printf("---------------------------\n");
+    printf("date.i = %d\n", date.i);
+    printf("date.f = %d\n", date.f);
+    printf("date.str = %s\n", date.str);
+    printf("sizeof(date) = %d\n", sizeof(date));//20
+    return 0;
+};
 
 void str() {
     printf("字符串\n");
@@ -86,12 +577,6 @@ void strarr() {
     printf("sss[0] = %s\n", sss[0]);//sss[0] = abc
 }
 
-struct Books{//结构体
-    char title[10];
-    char auther[10];
-    int id;
-} book = {"C语言", "zero", 1};
-
 int StructDemo() {
     printf("---------------------------\n");
     printf("book1.title = %s\n", book.title);
@@ -114,156 +599,6 @@ int StructDemo() {
     printf("book1.title = %s\n", (*b).title);
     printf("book1.auther = %s\n", (*b).auther);
     printf("book1.id = %d\n", (*b).id);
-
-    return 0;
-}
-union Date{//共用体
-    int i;
-    float f;
-    char str[20];
-};
-
-void sizeofMethod();
-
-void getChar();
-
-void powM();
-
-void scanfM();
-
-void strlenM();
-
-void atoiM();
-
-void itoaM();
-
-void spM();
-
-void snpM();
-
-void putcharM();
-
-void sqrtM();
-
-void fabsM();
-
-void strcopyM();
-
-void strcatM();
-
-void strcmpM();
-
-void strncpyM();
-
-void strncatM();
-
-void strncmpM();
-
-void fgetsM();
-
-void mallocM();
-
-void callocM();
-
-void reallocM();
-
-void memsetM();
-
-void memcpyM();
-
-void memmoveM();
-
-void memcmpM();
-
-void memchrM();
-
-void randM();
-
-void timeM();
-
-void arrayP();
-
-int unionDemo(){
-    union Date date;
-    date.i = 2;
-    date.f = 2.1;
-    strcpy(date.str, "sdf");
-    printf("---------------------------\n");
-    printf("date.i = %d\n", date.i);
-    printf("date.f = %d\n", date.f);
-    printf("date.str = %s\n", date.str);
-    printf("sizeof(date) = %d\n", sizeof(date));//20
-    return 0;
-};
-
-int main() {
-    printf("Hello, World!\n我的C\n");
-
-//    str();
-//    strr();
-//    strarr();
-
-//    StructDemo();
-//    unionDemo();
-
-//    sizeofMethod();//所占用内存得字节数
-
-//    getChar();//从标准输入流中获取字符
-
-//    powM();//求x得y次方
-
-//    scanfM();//格式化输入
-
-//    strlenM();//求字符串长度
-//    atoiM();//字符串类型改为整型
-//    itoaM();//整型转换为字符串型
-
-//    spM();//写入格式化数据到字符串
-//    snpM();//写入指定长度得格式化数据到字符串
-//    putcharM();//输出一个字符到标准输出流
-//    sqrtM();//求平方根
-//    fabsM();//求绝对值
-
-//    strcopyM();//字符串拷贝
-//    strncpyM();//受限字符串拷贝
-
-//    strcatM();//字符串连接
-//    strncatM();//受限字符串连接
-
-//    strcmpM();//比较字符串比较大小
-//    strncmpM();//受限得字符串比较大小
-
-//    fgetsM();//从指定文件中读取字符串。
-
-//    mallocM();//申请动态内存空间
-//    callocM();//申请并初始化一系列内存空间
-//    reallocM();//重新分配内存空间
-
-//    memsetM();//使用一个常量填充内存空间,相当于初始化为某个值
-//    memcpyM();//拷贝内存空间,按字节来拷贝的，不受数据类型影响
-//    memmoveM();//拷贝内存空间,先拷贝源到一个临时数组，再从临时数组拷贝到目标内存，避免内存重叠更安全
-//    memcmpM();//比较内存的大小
-
-//    memchrM();//在内存空间中搜索一个字符
-
-//    randM();//随机数
-
-//    timeM();//时间相关
-
-
-//    arrayP();//数组名字就是指向数组第一个元素的指针，指针法取值
-
-    //指针数组，这是一个数组，里面存的元素是指针。
-    char * str[3] = {"稍等", "sdfnsdkf", "到付哈地方"};
-    for (int i = 0; i < 3; ++i) {
-        printf("%s\n", str[i]);
-    }
-    //数组指针,指向一个数组的地址
-    char c[3] = {'a', 'b', 'c'};
-    char (*p)[3] = &c;
-    for (int j = 0; j < 3; ++j) {
-        printf("%c\n", *(*p+j));
-    }
 
     return 0;
 }
