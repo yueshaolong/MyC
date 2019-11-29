@@ -5,17 +5,18 @@
 #define M(y) y*y+3*y
 //#undef M
 
-#ifdef M  //如果宏已经定义，则返回真
+//不带参数的宏定义
+#ifdef M1  //如果宏已经定义，则返回真
 #endif
-#ifndef M //如果没有定义宏，则返回真
+#ifndef M1 //如果没有定义宏，则返回真
 // 不带参数的宏定义
-#define M 10//定义宏
-#undef M//取消已定义的宏
+#define M2 10//定义宏,将程序中所有的M2替换为10
+#undef M2//取消已定义的宏
 #endif
 
 
 #define  message_for(a, b) \
-    printf(#a " and " #b ": We love you!\n")
+    printf(#a " and " #b ": We love you!\n")//#会把后面的内容直接变成字符串来替换
 
 #if SYSTEM_1
 # include "system_1.h"
@@ -24,15 +25,21 @@
 #elif SYSTEM_3
 #endif
 
-#define tokenpaster(n) printf (" " #n " = %d", token##n)
+#define tokenpaster(n) printf (" " #n " = %d\n", token##n)//token##n， 即tokens
 
 #if !defined (MESSAGE)//如果没有定义宏MESSAGE，则定义一下
 #define MESSAGE "You wish!"
 #endif
 
+//带参数的宏定义
 #define square(x) ((x) * (x))
 
+//带参数的宏定义
 #define MAX(x,y) ((x) > (y) ? (x) : (y))
+
+//可变参数的宏定义
+#define STR(...) printf(# __VA_ARGS__)
+#define PR(format,...) printf(# format, ##__VA_ARGS__)
 
 typedef unsigned char BYTE;
 
@@ -57,7 +64,7 @@ int max(int a, int b){
 void const_zz() {//常量指针
     //注意char const *p与const char *p效果相同。
     char const *p1;//const修饰的是char，定义为常量指针。
-    const char *p1;//与上等同
+    const char *p11;//与上等同
     // 因为const修饰的是char，所以p1所指向的内存地址所对应的值是const，不可修改。
     // 但指针所指向的内存地址是可以修改的，因为其并不是const类型。
     // p1=1;//正确  地址可改变
@@ -175,33 +182,32 @@ void medthod_zz(){
 
 }
 
+inline int sq1(int x);
+
+void sqmy();
+
+void pps();
+
+void hong();
+
+//加inline关键字表示内联函数，节省代码调用时间，
+// 但编译器比你更清楚哪些函数需要内联哪些不需要，所以一般不会写内联函数
+int sq1(int x){
+    return x * x;
+}
+
 int main() {
     printf("Hello, World!\n我的C\n");
 
+//    pps();
+    hong();
 
-//    int x =1, y =1, z = 1;
-//    printf("%d\n", ++x || (++y && ++z));
-
-//    puts("C语言中文网");
-    /*宏调用*/
-//    M(5);
-
-//    message_for(Carole, Debra);
-
-//    int tokens = 20;
-//    tokenpaster(s);
-
-//    printf("Here is the message: %s\n", MESSAGE);
-
-//    printf("平方%d\n", square(2));
-//    printf("Max between 20 and 10 is %d\n", MAX(10, 20));
-
-//    BYTE a;
+//    BYTE a;//自定义类型
 //    BYTE byte;
 
-//    const_zz();
-//    arr_zz();
-//    medthod_zz();
+//    const_zz();//常量与指针
+//    arr_zz();//数组与指针
+//    medthod_zz();//函数与指针
 
 //    a(23);
 //    b();
@@ -211,11 +217,45 @@ int main() {
 //    c1();
 //    d();
 //    e();
-    sw();
+//    sw();
+//    sqmy();
+
+
 
     return 0;
 }
 
+void hong() {
+    puts("C语言中文网");
+    /*宏调用*/
+    printf("%d\n", M(5));
+
+    message_for(函数, 框架);
+
+    int tokens = 20;
+    tokenpaster(s);
+
+    printf("Here is the message: %s\n", MESSAGE);
+
+    printf("2的平方%d\n", square(2));
+    printf("Max between 20 and 10 is %d\n", MAX(10, 20));
+
+    STR(sdfd,3,45,"dd",12\n);
+    PR(num = %d\n, 520);
+    PR(ni hao\n);//后面的可变参数是空参数
+}
+
+void pps() {
+    int x =1, y =1, z = 1;
+    printf("%d\n", ++x < 0 || (++y && ++z) < 0);//0为false，非0为true
+}
+
+void sqmy() {
+    int i = 1;
+    while (i <= 100){
+        printf("%d的平方是：%d\n", i-1, sq1(i++));
+    }
+}
 
 int a(){
     char c = 128;

@@ -192,6 +192,11 @@ int (*select(char c))(int x, int y){
 }
 int cocc /*= 0*/;//这是全局变量，会被自动初始化为0；
 void func();
+
+void kspx(int pInt[6], int i, int i1);
+
+void px();
+
 void func(){
     extern int ccc;//extern关键字，可以在下面定义此变量
     ccc+=10;
@@ -206,7 +211,7 @@ void funcc(void){
     static int iii = 34;//静态局部变量，拥有静态存储期，和全局变量一样，直到程序结束释放内存
 }
 
-int main() {
+int mainj() {
     printf("Hello, World!\n我的C\n");
 
 //    str();
@@ -278,7 +283,7 @@ int main() {
 
 //    summ(3, 1, 3, 2);//可变参数函数的实现
 
-//    zzmethod();//指针函数
+    zzmethod();//指针函数
 //    methodzz();//函数指针
 
 //    methodzzV();//函数指针作为参数传递
@@ -286,8 +291,53 @@ int main() {
 //    zyy();//作用域演示
 //    func();//变量定义测试
 
+//    px();//排序，快速排序
 
     return 0;
+}
+
+void px() {
+//    int arr[] = {2, 45, 1, 23, 99, 34};
+//    int arr[] = {200, 34};
+    int arr[] = {24, 20, 34, 764, 87};
+    int length = sizeof(arr)/ sizeof(arr[0]);//数组的长度
+    kspx(arr, 0, length - 1);//快速排序
+    printf("排序结果：");
+    for (int j = 0; j < length; j++) {
+        printf("%d ", arr[j]);
+    }
+}
+
+//快速排序；通过基准点（一般选中间的点）对比大小来实现
+void kspx(int pInt[6], int left, int right) {
+    int i = left, j = right;
+    int point = pInt[(i+j)/2];//基准点
+    int temp;
+    while(i <= j) {//如果i小于等于j,开始比较
+        //从左边开始和基准点比较,如果比基准点小，就向右移动i的位置
+        while (pInt[i] < point){
+            i++;
+        }
+        //从右边开始和基准点比较,如果比基准点大，就向左移动j的位置
+        while (pInt[j] > point){
+            j--;
+        }
+        //i和j都停止移动后，把他俩互换位置
+        if (i <= j) {
+            temp = pInt[i];
+            pInt[i] = pInt[j];
+            pInt[j] = temp;
+            i++;
+            j--;
+        }
+    }
+    //换位置后会变成左右两个不同的数列，在递归调用即可
+    if(left < j){
+        kspx(pInt, left, j);
+    }
+    if (i < right){
+        kspx(pInt, i, right);
+    }
 }
 
 void zyy() {
