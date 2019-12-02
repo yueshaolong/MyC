@@ -211,14 +211,14 @@ void funcc(void){
     static int iii = 34;//静态局部变量，拥有静态存储期，和全局变量一样，直到程序结束释放内存
 }
 
-int mainj() {
+int main() {
     printf("Hello, World!\n我的C\n");
 
 //    str();
 //    strr();
 //    strarr();
 
-//    StructDemo();
+    StructDemo();
 //    unionDemo();
 
 //    sizeofMethod();//所占用内存得字节数
@@ -283,7 +283,7 @@ int mainj() {
 
 //    summ(3, 1, 3, 2);//可变参数函数的实现
 
-    zzmethod();//指针函数
+//    zzmethod();//指针函数
 //    methodzz();//函数指针
 
 //    methodzzV();//函数指针作为参数传递
@@ -632,6 +632,7 @@ int StructDemo() {
     printf("book1.title = %s\n", book.title);
     printf("book1.auther = %s\n", book.auther);
     printf("book1.id = %d\n", book.id);
+    printf("---------------------------\n");
     struct Books book1;
     strcpy(book1.title, "adfsdf");
     strcpy(book1.auther, "kkk");

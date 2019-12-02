@@ -196,11 +196,11 @@ int sq1(int x){
     return x * x;
 }
 
-int main() {
+int main1() {
     printf("Hello, World!\n我的C\n");
 
 //    pps();
-    hong();
+//    hong();
 
 //    BYTE a;//自定义类型
 //    BYTE byte;
