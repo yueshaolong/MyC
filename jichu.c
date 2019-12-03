@@ -98,7 +98,7 @@ union Date{//共用体
     int i;
     float f;
     char str[20];
-};
+}a,b,c;
 struct Books{//结构体
     char title[10];
     char auther[10];
@@ -197,6 +197,14 @@ void kspx(int pInt[6], int i, int i1);
 
 void px();
 
+void typedefM();
+
+void wyM();
+
+void wyM2();
+
+void wys();
+
 void func(){
     extern int ccc;//extern关键字，可以在下面定义此变量
     ccc+=10;
@@ -211,14 +219,26 @@ void funcc(void){
     static int iii = 34;//静态局部变量，拥有静态存储期，和全局变量一样，直到程序结束释放内存
 }
 
-int main() {
+//
+//typedef是为数据类型起别名；一般和结构体一起使用，把struct DATA类型重命名为DATA；那么，
+//在下文使用中的struct DATA都可以使用DATA来代替了。*PDATA表示指向这个结构体的指针。
+typedef struct DATA{
+    int year;
+    int month;
+    int day;
+} DATA, *PDATA;
+
+//枚举类型,int型，从0开始，sun=1,fri=2
+enum WEEK {mon, sun, fri, sta, tur, wen};
+
+int mainj() {
     printf("Hello, World!\n我的C\n");
 
 //    str();
 //    strr();
 //    strarr();
 
-    StructDemo();
+//    StructDemo();
 //    unionDemo();
 
 //    sizeofMethod();//所占用内存得字节数
@@ -293,7 +313,107 @@ int main() {
 
 //    px();//排序，快速排序
 
+//    typedefM();//typedef关键字
+//    wyM();//位域
+//    wyM2();//位移运算，<<左移，>>右移；位移运算效率最高
+    wys();//位运算
+
     return 0;
+}
+
+void wys() {
+    //0表示false,1表示true，
+    //注意：负数按补码形式参加按位与运算。
+
+// &	与	    两个位都为1时，结果才为1；两个都为true，结果为true
+//作用：
+/* 1）清零
+如果想将一个单元清零，即使其全部二进制位为0，只要与一个各位都为零的数值相与，结果为零。
+2）取一个数的指定位
+比如取数 X=1010 1110 的低4位，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，
+        然后将X与Y进行按位与运算（X&Y=0000 1110）即可得到X的指定位。
+3）判断奇偶
+只要根据最未位是0还是1来决定，为0就是偶数，为1就是奇数。因此可以用if ((file & 1) == 0)代替
+if (file % 2 == 0)来判断a是不是偶数。*/
+
+// |	或	    两个位都为0时，结果才为0；只要有一个为true，结果为true
+//作用：
+ /*1）常用来对一个数据的某些位设置为1
+比如将数 X=1010 1110 的低4位设置为1，只需要另找一个数Y，令Y的低4位为1，其余位为0，即Y=0000 1111，
+ 然后将X与Y进行按位或运算（X|Y=1010 1111）即可得到。*/
+
+// ^	异或	两个位相同为0，相异为1；有点奇怪
+//异或的几条性质:
+/*1、交换律
+2、结合律 (file^b)^c == file^(b^c)
+3、对于任何数x，都有 x^x=0，x^0=x
+4、自反性: file^b^b=file^0=file;*/
+//异或运算的用途：
+/*1）翻转指定位
+比如将数 X=1010 1110 的低4位进行翻转，只需要另找一个数Y，令Y的低4位为1，其余位为0，
+        即Y=0000 1111，然后将X与Y进行异或运算（X^Y=1010 0001）即可得到。
+2）与0相异或值不变
+例如：1010 1110 ^ 0000 0000 = 1010 1110
+3）交换两个数
+void Swap(int &file, int &b){
+    if (file != b){
+        file ^= b;
+        b ^= file;
+        file ^= b;
+    }
+}*/
+
+// ~	取反	0变1，1变0；true变false，false变true
+//作用：
+/*1）使一个数的最低位为零
+使a的最低位为0，可以表示为：file & ~1。~1的值为 1111 1111 1111 1110，再按"与"运算，最低位一定为0。
+因为“~”运算符的优先级比算术运算符、关系运算符、逻辑运算符和其他运算符都高。*/
+}
+
+void wyM2() {
+    unsigned int value = 1;//移位运算时，如果是无符号负数时，移动结果会不会覆盖符号位由编译器决定，慎用
+    while(value < 1024){
+        //左移n位；表示乘以2的n次方
+        value <<= 2;//左移2就是乘以2的2次方；
+        printf("value = %d\n", value);
+    }
+    printf("--------------------\n");
+    value = 1024;
+    while(value > 0){
+        //右移n位；表示除以2的n次方
+        value >>= 3;//右移3就是除以2的3次方；
+        printf("value = %d\n", value);
+    }
+}
+
+void wyM() {
+    //位域是节省占用空间的做法；把一个字节的8bit拆开来存放多个数据。
+    struct Test{
+        unsigned int a:1;//占用1bit
+        unsigned int b:1;
+        unsigned int :2;//无名位域，b和c之间给了2bit;
+        unsigned int c:2;//占用2bit
+    };
+    struct Test test;
+    test.a = 0;
+    test.b = 1;
+    test.c = 2;//2换成二进制是两位，所以占用两个bit位
+    printf("file=%d,b=%d,c=%d\n", test.a, test.b, test.c);
+    printf("sizeof:%d\n", sizeof(test));//4
+
+}
+
+void typedefM() {
+    struct DATA *data;
+    data = (PDATA)malloc(sizeof(DATA));
+    if(data == NULL){
+        printf("申请内存失败");
+//        exit(1);
+    }
+    data->year = 2019;
+    data->month = 12;
+    data->day = 13;
+    printf("%d-%d-%d\n", data->year, data->month, data->day);
 }
 
 void px() {
@@ -462,11 +582,11 @@ void constzz() {
 
 void arrzz() {
     int a[2][5] = {{0, 1, 2, 3, 4}, {5, 6, 7, 8, 9}};
-//    int **p = a;//不能这样写
+//    int **p = file;//不能这样写
 //    printf("%p\n", p);//000000000061FDE0
 //    printf("%p\n", p+1);//000000000061FDE8  +1的跨度是8
-//    printf("%p\n", a);//000000000061FDE0
-//    printf("%p\n", a+1);//000000000061FDF4  +1的跨度是20，刚好是五个int
+//    printf("%p\n", file);//000000000061FDE0
+//    printf("%p\n", file+1);//000000000061FDF4  +1的跨度是20，刚好是五个int
     int (*p)[5] = a;//用数组指针来表示二维数组，指向五个元素的数组的指针
     for (int j = 0; j < 2; ++j) {
         for (int i = 0; i < 5; ++i) {
@@ -537,13 +657,15 @@ void arrP() {//指针数组，这是一个数组，里面存的元素是指针。
 int unionDemo(){
     union Date date;
     date.i = 2;
-    date.f = 2.1;
-    strcpy(date.str, "sdf");
+    date.f = 2.1;//共用体只能初始化其中一个元素，不能同时初始化多个元素；
+    strcpy(date.str, "sdf");//当初始化多个元素时，只会后面覆盖前面的元素；
     printf("---------------------------\n");
-    printf("date.i = %d\n", date.i);
-    printf("date.f = %d\n", date.f);
-    printf("date.str = %s\n", date.str);
-    printf("sizeof(date) = %d\n", sizeof(date));//20
+    printf("date.i = %d\n", date.i);//错误值，被覆盖了
+    printf("date.f = %d\n", date.f);//错误值，被覆盖了
+    printf("date.str = %s\n", date.str);//正确值
+    printf("sizeof(date) = %d\n", sizeof(date));//20；
+    // 他的大小是能装得下占用最大空间的元素，但并不一定是占用空间最大的元素的大小，
+    // 有时候会比最大元素稍微大一点，因为有自动对齐
     return 0;
 };
 
@@ -576,7 +698,7 @@ void strr() {
     for (int i = 0; i < 10; ++i) {
         str[i] = 'a'+i;
     }
-    printf("%s\n", str);//a b c d e f g h i j
+    printf("%s\n", str);//file b c d e f g h i j
     strcpy(str, "sdfsdf");//给str赋值
     printf("%s\n", str);//s d f s d f \0 h i j
     printf("strlen=%d\n", strlen(str));//6  真实数据长度，'\0'没有算上去，算到'\0'就结束
@@ -610,7 +732,7 @@ void strr() {
 
     printf("%d\n", strcmp("adq", "ad"));//判断两个字符串是否相等，相等是0，不相等时，大于1，小于-1
     printf("%d\n", strcmp("ad", "ad"));//0
-    printf("%d\n", strcmp("a", "b"));//-1
+    printf("%d\n", strcmp("file", "b"));//-1
 
 }
 

@@ -41,7 +41,7 @@
 #define STR(...) printf(# __VA_ARGS__)
 #define PR(format,...) printf(# format, ##__VA_ARGS__)
 
-typedef unsigned char BYTE;
+typedef unsigned char BYTE;//无符号的char类型；typedef是为数据类型起别名
 
 int a();
 int b();
@@ -68,22 +68,22 @@ void const_zz() {//常量指针
     // 因为const修饰的是char，所以p1所指向的内存地址所对应的值是const，不可修改。
     // 但指针所指向的内存地址是可以修改的，因为其并不是const类型。
     // p1=1;//正确  地址可改变
-    // *(p1+1)='a';//错误  值不可改变
+    // *(p1+1)='file';//错误  值不可改变
 
     //指针常量
     char *const p2;//const修饰的是*，定义为指针常量
     // 因为const修饰的是指针p2，所以指针所指向的内存地址是const，不可修改。
     // 但p2所指向内存地址所对应的值是可以修改的，因为其并不是const类型。
     // p2=1;//错误 地址不可变
-    // p2[1]='a';//正确 值可以变
-    // *(p2+1)='a';//正确 值可以变，和上一行结果一样
+    // p2[1]='file';//正确 值可以变
+    // *(p2+1)='file';//正确 值可以变，和上一行结果一样
 
     //指向常量的指针常量: const同时修饰类型和指针。
     const char *const p3;
     char const *const p4;
     //因为const同时修饰这类型和指针，所以指针所指向的内存地址不可修改 同时内存地址所对应的值也不可修改。
     // p3=1;//错误 地址不可修改
-    // p4[1]='a';//错误  值不可修改
+    // p4[1]='file';//错误  值不可修改
 
 }
 
@@ -108,7 +108,7 @@ void arr_zz() {
     16, 932, 100
     16, 932, 100*/
     /*arr 是一个指针数组，它包含了 3 个元素，每个元素都是一个指针，在定义 arr 的同时，
-    我们使用变量 a、b、c 的地址对它进行了初始化，这和普通数组是多么地类似。*/
+    我们使用变量 file、b、c 的地址对它进行了初始化，这和普通数组是多么地类似。*/
     /*parr 是指向数组 arr 的指针，确切地说是指向 arr 第 0 个元素的指针，
     它的定义形式应该理解为int *(*parr)，括号中的*表示 parr 是一个指针，
     括号外面的int *表示 parr 指向的数据的类型。arr 第 0 个元素的类型为 int *，
@@ -174,7 +174,7 @@ void medthod_zz(){
 
     int x, y, maxval;
     //定义函数指针
-    int (*pmax)(int, int) = max;  //也可以写作int (*pmax)(int a, int b)
+    int (*pmax)(int, int) = max;  //也可以写作int (*pmax)(int file, int b)
     printf("Input two numbers:");//请输入两个数字
     scanf("%d %d", &x, &y);//在控制台输入两个数字
     maxval = (*pmax)(x, y);
@@ -202,14 +202,14 @@ int main1() {
 //    pps();
 //    hong();
 
-//    BYTE a;//自定义类型
+//    BYTE file;//自定义类型
 //    BYTE byte;
 
 //    const_zz();//常量与指针
 //    arr_zz();//数组与指针
 //    medthod_zz();//函数与指针
 
-//    a(23);
+//    file(23);
 //    b();
 //    c();
 //    a1();
