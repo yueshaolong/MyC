@@ -48,7 +48,7 @@ typedef struct Book {
     struct Date date;
 } BOOK, *BOOKP;
 
-int main(){
+int mainn(){
 //    charRead();//从文件读取字符
 //    charWrite();//向文件写入字符
 
